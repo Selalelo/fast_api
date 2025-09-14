@@ -57,11 +57,11 @@ def get_post(db: Session = Depends(get_db)):
 
 @app.post("/posts", status_code = status.HTTP_201_CREATED )
 def posts(post: Post, db: Session = Depends(get_db) ):
-    new_post = models.Post(title = post.title, content = post.content, published = post.published)
+    new_post = models.Post(**post.dict())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)
-    return {"data": my_posts}
+    return {"data": new_post}
 
 @app.get("/posts/{id}")
 def post_using_id(id:int):
