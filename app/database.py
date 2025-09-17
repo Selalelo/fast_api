@@ -6,15 +6,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# host = os.getenv("DB_HOST")
-# database = os.getenv("DB_NAME")
-# user = os.getenv("DB_USER")
-# password = os.getenv("DB_PASSWORD")
-# port = os.getenv("DB_PORT")
 
-# DATABASE_URL = f'postgresql://{user}:{password}@{host}:{port}/{database}'
 
 DB_URL = os.getenv("DB_URL")
+if DB_URL is None:
+    raise ValueError("DB_URL environment variable is not set")
 
 engine = create_engine(DB_URL)
 
